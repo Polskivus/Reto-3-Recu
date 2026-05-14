@@ -3,10 +3,10 @@
 @keyframes drop-in {
     from {
         transform:translateY(-100%);
-        opacity: 0;
+        opacity: 1;
     }
     to {
-        transform:translateY(0%);
+        transform:translateY(var(--drop-in-offset));
         opacity: 1;
     }
 }
@@ -27,7 +27,18 @@
 }
 
 body {
+    display: flex;
     background-color: lightblue;
+}
+
+.nombreGira {
+    animation: drop-in 300ms ease forwards,
+    spin 1000ms ease forwards 300ms;
+}
+
+section {
+  display: flex;
+  gap: 16px;
 }
 
 .caja {
@@ -39,7 +50,36 @@ body {
     place-content: center;
     color: white;
     text-align: center;
-    animation: drop-in 1000ms;
-    animation-iteration-count: 2;
-    animation-timing-function: linear;
+    animation: drop-in linear;
+}
+
+.caja.una {
+    cursor: pointer;
+    --drop-in-offset: 0%;
+    animation-duration: 200ms;
+    animation-fill-mode:forwards ;
+}
+
+.caja.dos {
+    --drop-in-offset: 25%;
+    animation-duration: 500ms;
+    animation-fill-mode:forwards ;
+}
+
+.caja.tres {
+    --drop-in-offset: 50%;
+    animation-duration: 1000ms;
+    animation-fill-mode:forwards ;
+}
+
+.caja.cuatro {
+    --drop-in-offset: 75%;
+    animation-duration: 1500ms;
+    animation-fill-mode:forwards ;
+}
+
+.caja.cinco {
+    --drop-in-offset: 100%;
+    animation-duration: 2000ms;
+    animation-fill-mode:forwards ;
 }
