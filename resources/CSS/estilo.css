@@ -1,0 +1,45 @@
+/*Vamos a crear los Keyframes*/
+
+@keyframes drop-in {
+    from {
+        transform:translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform:translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from{
+        transform: rotate(0turn);
+    }
+    to{
+        transform: rotate(1turn);
+    }
+}
+
+.spinner {
+    animation: spin 2000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+body {
+    background-color: lightblue;
+}
+
+.caja {
+    height: 150px;
+    width: 200px;
+    background: slateblue;
+    padding: 8px;
+    display: grid;
+    place-content: center;
+    color: white;
+    text-align: center;
+    animation: drop-in 1000ms;
+    animation-iteration-count: 2;
+    animation-timing-function: linear;
+}
