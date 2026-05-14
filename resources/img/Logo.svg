@@ -1,0 +1,45 @@
+<svg width="220" height="80" viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="clip-gear">
+      <circle cx="36" cy="40" r="26"/>
+    </clipPath>
+  </defs>
+
+  <!-- Rueda exterior -->
+  <circle cx="36" cy="40" r="26" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Eje central (cabeza robot) -->
+  <circle cx="36" cy="40" r="10" fill="#1a1a1a"/>
+  <circle cx="36" cy="40" r="5" fill="white"/>
+
+  <!-- Radios -->
+  <g stroke="#1a1a1a" stroke-width="3" stroke-linecap="round">
+    <line x1="36" y1="10" x2="36" y2="16"/>
+    <line x1="36" y1="64" x2="36" y2="70"/>
+    <line x1="6"  y1="40" x2="12" y2="40"/>
+    <line x1="60" y1="40" x2="66" y2="40"/>
+    <line x1="15" y1="19" x2="19" y2="23"/>
+    <line x1="53" y1="57" x2="57" y2="61"/>
+    <line x1="57" y1="19" x2="53" y2="23"/>
+    <line x1="19" y1="57" x2="15" y2="61"/>
+  </g>
+
+  <!-- Cara robot -->
+  <rect x="23" y="30" width="26" height="20" rx="3"
+        fill="#1a1a1a" clip-path="url(#clip-gear)"/>
+  <!-- Ojos -->
+  <rect x="27" y="34" width="6" height="6" rx="1.5" fill="white"/>
+  <rect x="39" y="34" width="6" height="6" rx="1.5" fill="white"/>
+  <!-- Boca -->
+  <rect x="29" y="43" width="14" height="2.5" rx="1.2" fill="white"/>
+
+  <!-- Texto -->
+  <text x="82" y="36" font-size="22" font-weight="600"
+        fill="#1a1a1a" font-family="system-ui, sans-serif"
+        letter-spacing="-0.5">T@SLA</text>
+  <text x="82" y="60" font-size="22" font-weight="300"
+        fill="#1a1a1a" font-family="system-ui, sans-serif"
+        letter-spacing="1">AUTO-ROBOT</text>
+  <!-- Línea separadora -->
+  <line x1="82" y1="42" x2="240" y2="42"
+        stroke="#1a1a1a" stroke-width="0.8" opacity="0.3"/>
+</svg>
