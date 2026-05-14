@@ -1,4 +1,79 @@
-/*Vamos a crear los Keyframes*/
+@keyframes salir-de-lado {
+    from{
+        transform: translateX(var(--salir-de-lado-offset));
+        opacity: 0;
+    }
+    to{
+        transform: translateX(var(--venir-de-lado-offset));
+        opacity: 1;
+    }
+}
+
+.pagina {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.caja {
+    width: 200px;
+    height: 80px;
+    border: 2px solid black;
+    animation: salir-de-lado 1000ms ease;
+}
+
+.caja.un {
+    --salir-de-lado-offset: -100%;
+    --venir-de-lado-offset: 100%;
+    animation-fill-mode: forwards;
+}
+
+.caja.tre{
+    --salir-de-lado-offset: 100%;
+    --venir-de-lado-offset: -100%;
+    animation-fill-mode: forwards;
+}
+
+.ciruculo {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.spinner {
+    animation: spin 2000ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+body {
+    display: flex;
+    background-color: lightblue;
+}
+
+.nombreGira {
+    animation: drop-in 300ms ease forwards,
+    spin 1000ms ease forwards 300ms;
+}
+
+
+/*
 
 @keyframes drop-in {
     from {
@@ -20,38 +95,18 @@
     }
 }
 
-.spinner {
-    animation: spin 2000ms;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-body {
-    display: flex;
-    background-color: lightblue;
-}
-
-.nombreGira {
-    animation: drop-in 300ms ease forwards,
-    spin 1000ms ease forwards 300ms;
-}
-
-section {
-  display: flex;
-  gap: 16px;
-}
-
 .caja {
     height: 150px;
     width: 200px;
     background: slateblue;
-    padding: 8px;
+    padding: 20px;
     display: grid;
     place-content: center;
     color: white;
     text-align: center;
     animation: drop-in linear;
 }
+
 
 .caja.una {
     cursor: pointer;
@@ -83,3 +138,5 @@ section {
     animation-duration: 2000ms;
     animation-fill-mode:forwards ;
 }
+
+*/
