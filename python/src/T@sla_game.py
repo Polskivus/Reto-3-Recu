@@ -8,8 +8,8 @@ pygame.init()
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 800
 
-VELOCIDAD = 500
-GRAVEDAD = 200
+VELOCIDAD = 300
+GRAVEDAD = 120
 
 pantalla = pygame.display.set_mode((1400, 800), pygame.DOUBLEBUF)
 reloj = pygame.time.Clock()
@@ -31,13 +31,15 @@ class PJ(pygame.sprite.Sprite):
         super().__init__()
         try:
             self.imagen = pygame.image.load(ruta_imagen_PJ).convert_alpha()
+            print(self.imagen.get_size())
         except pygame.error as e:
             print(f"No se pudo cargar la imagen: {ruta_imagen_PJ}")
             raise SystemExit(e)
         self.rect = self.imagen.get_rect()
-        self.rect.center = (pantalla.get_width() / 2, pantalla.get_height() / 2)
-        self.x = float(self.rect.centerx)
-        self.y = float(self.rect.centery)
+        self.rect.midbottom = (pantalla.get_width() / 2, SCREEN_HEIGHT)
+        print(self.rect)
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def update(self, dt):
         tecla_pulsada = pygame.key.get_pressed()
