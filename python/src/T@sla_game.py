@@ -120,8 +120,8 @@ class Bloque(pygame.sprite.Sprite):
 
 P1 = PJ()
 bloques = pygame.sprite.Group()
-suelo = Bloque(400,600, 300, 20)
-suelo2 = Bloque(100, 600, 300, 20)
+suelo = Bloque(400,500, 300, 20)
+suelo2 = Bloque(100, 500, 300, 20)
 bloques.add(suelo, suelo2)
 
 while ejecutando:
