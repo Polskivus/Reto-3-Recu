@@ -1,0 +1,10 @@
+
+#Pantalla
+SCREEN_WIDTH = 1400
+SCREEN_HEIGHT = 800
+
+#Atributos del mundo
+VELOCIDAD = 300
+GRAVEDAD = 200
+
+FPS = 60
