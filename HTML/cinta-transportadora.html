@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Reto-3-Recu/resources/CSS/animaciones2.css">
     <title>Cinta transportadora</title>
 </head>
+
 <body>
     <div class="zona-trabajo">
         <input type="text" name="numRobot" id="numRobot">
@@ -15,69 +17,74 @@
     </div>
 
 
-    <div class="cinta-desactivada" id="cinta">
-        <img class="items" src="/Reto-3-Recu/resources/img/ITEM1.svg" alt="" style="left: 200px;">
+    <div class="contenedor-cinta">
+        <div class="cinta-tren" id="cinta">
+            <div id="pistaA" class="pista"></div>
+            <div id="pistaB" class="pista"></div>
+        </div>
     </div>
-        
 
-
-    <div class="zona-trabajo2" style="display: flex; align-items: center; padding: 10px; justify-content: space-around;">
-        <img src="/Reto-3-Recu/resources/img/robot-icon.svg" alt="Robot" style="height: 50px; width: 50px;">
-        <img src="/Reto-3-Recu/resources/img/robot-icon.svg" alt="Robot" style="height: 50px; width: 50px;">
-        <img src="/Reto-3-Recu/resources/img/robot-icon.svg" alt="Robot" style="height: 50px; width: 50px;">
-        <img src="/Reto-3-Recu/resources/img/robot-icon.svg" alt="Robot" style="height: 50px; width: 50px;">
-        <img src="/Reto-3-Recu/resources/img/robot-icon.svg" alt="Robot" style="height: 50px; width: 50px;">
-    </div>
+    <div class="zona-trabajo2" style="display: flex; align-items: center; padding: 10px; justify-content: space-around;"></div>
 
     <div class="contoles">
         <input type="button" value="Activar maquinaria" onclick="stopStart()" id="textoMaquina">
     </div>
 
-    
-
-<!-- Aqui empiezan los scripts (parece un comentario echo por ia XD)-->
+    <!-- Aqui empiezan los scripts (parece un comentario echo por ia XD)-->
     <script>
-        /*Este primer script se dedica a coger el tamaño de la pantalla, luego lo divide por lo ancho que es una cinta y imprime para que llenen la pantalla*/
-        function cintaPantalla(){
-            const zona = document.getElementById("cinta");
+
+        function cintaPantalla() {
+            const pistaA = document.getElementById("pistaA");
+            const pistaB = document.getElementById("pistaB");
             const anchoCinta = 100;
 
-            const cantidad = Math.ceil(window.innerWidth / anchoCinta) + 5;
+            pistaA.innerHTML = '';
+            pistaB.innerHTML = '';
 
-            for(let i=0; i < cantidad; i++){
-                const img_cinta = document.createElement('img');
-                img_cinta.src = '/Reto-3-Recu/resources/img/cinta-transportadora.svg';
-                img_cinta.alt = 'cinta-transportadora';
-                img_cinta.style.width = '100px';
-                img_cinta.style.zIndex = '0'
-                zona.appendChild(img_cinta);
+            const cantidad = Math.ceil(window.innerWidth / anchoCinta) + 1;
 
-                const posicionCinta = i * 100;
+            const posicionItems = [];
+            for (let i = 0; i < cantidad; i++) {
+                posicionItems.push(Math.floor(Math.random() * 80));
+                posicionItems.push(Math.floor(Math.random() * 80));
+            }
 
-                for(let j = 0; j < 2; j++){
-                    const item = document.createElement('img');
-                    item.src = '/Reto-3-Recu/resources/img/ITEM1.svg';
-                    item.alt = 'Item';
-                    item.className = 'items';
-                    item.style.left = (posicionCinta + Math.floor(Math.random() * 80)) + 'px';
-                    zona.appendChild(item);
+            function construirPista(pistaDestino) {
+                let indiceItem = 0;
+                for (let i = 0; i < cantidad; i++) {
+                    const img_cinta = document.createElement('img');
+                    img_cinta.src = '/Reto-3-Recu/resources/img/cinta-transportadora.svg';
+                    img_cinta.alt = 'cinta';
+                    img_cinta.style.width = '100px';
+                    pistaDestino.appendChild(img_cinta);
+
+                    const posicionCinta = i * 100;
+
+                    for (let j = 0; j < 2; j++) {
+                        const item = document.createElement('img');
+                        item.src = '/Reto-3-Recu/resources/img/ITEM1.svg';
+                        item.alt = 'Item';
+                        item.className = 'items';
+                        item.style.left = (posicionCinta + posicionItems[indiceItem]) + 'px';
+                        pistaDestino.appendChild(item);
+                        indiceItem++;
+                    }
                 }
             }
+
+            construirPista(pistaA);
+            construirPista(pistaB);
         }
-//Aqui llamamos al metodo, para que imprima la pantalla
         cintaPantalla();
         window.addEventListener('resize', cintaPantalla);
-//El de arriba lo que hace es que cada vez que cambiemos el tamaño de pantalla cambia el numero de elementos que hay.
 
-//Esta funcion es parecida, pero esta recibe un numero de "participantes" que recibe y muestra el numero de robots introducido por el usuario
-        function robotPantalla(){
-            const input_robot = document.querySelector('#numRobot');
-            const numRobot = parseInt(input_robot.value);
+        function robotPantalla() {
+            const inputRobot = document.querySelector('#numRobot');
+            const numRobot = parseInt(inputRobot.value);
             const zona = document.querySelector('.zona-robots');
+            zona.innerHTML = '';
 
-            zona.innerHTML = ''
-
-            for(let i=0 ; i < numRobot ; i++){
+            for (let i = 0; i < numRobot; i++) {
                 const img_robot = document.createElement('img');
                 img_robot.src = '/Reto-3-Recu/resources/img/robot-icon.svg';
                 img_robot.alt = 'Robot';
@@ -86,20 +93,22 @@
                 zona.appendChild(img_robot);
             }
         }
-        //Ponemos un estado de la cinta para controlar si esta encendida o apagada
         let cintaEstado = 0;
-        function stopStart(){ 
+        function stopStart(){
+            const cinta = document.getElementById("cinta");
+            const boton = document.getElementById("textoMaquina");
+            
             if (cintaEstado == 0){
-                document.getElementById("cinta").className = "cinta-activada";
-                document.getElementById("textoMaquina").value = "Apagar maquina";
+                cinta.classList.add("cinta-activada");
+                boton.value = "Apagar maquinaria";
                 cintaEstado = 1;
-                }
-            else {
-                document.getElementById("cinta").className = "cinta-desactivada";
-                document.getElementById("textoMaquina").value = "Activar maquinaria";
+            } else {
+                cinta.classList.remove("cinta-activada");
+                boton.value = "Activar maquinaria";
                 cintaEstado = 0;
             }
         }
     </script>
 </body>
+
 </html>
