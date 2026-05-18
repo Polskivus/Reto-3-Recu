@@ -1,3 +1,7 @@
+/*
+Estilo general de las paginas
+*/
+
 html, body {
     width: 100%;
     overflow-x: hidden;
@@ -30,6 +34,117 @@ body {
     display: flex;
     background-color: lightblue;
 }
+
+/*
+Parte de la primera pagina
+*/
+
+
+.caja {
+    background-color: whitesmoke;
+    cursor: pointer;
+    width: 200px;
+    height: 80px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: salir-de-lado 1000ms ease;
+    transform: scale(1);
+    transition: transform 300ms ease-out;
+}
+
+.caja:hover{
+    transform: scale(1.5);
+}
+
+.caja.un {
+    animation: salir-izquierda 1000ms forwards;
+}
+
+.caja.un:hover .texto {
+    opacity: 0;
+}
+
+.caja.un::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('/Reto-3-Recu/resources/img/Logo.svg');
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.caja.un:hover::after {
+    opacity: 1;
+}
+
+.caja.do {
+    animation: salir-izquierda 1000ms forwards;
+    animation-delay: 2000ms;
+    animation-fill-mode: both;
+}
+
+.caja.tre{
+    animation: salir-derecha 1000ms forwards;
+    animation-delay: 1000ms;
+    animation-fill-mode: both;
+}
+
+.caja.cua{
+    animation: salir-derecha 1000ms forwards;
+    animation-delay: 3000ms;
+    animation-fill-mode: both;
+}
+
+.ciruculo {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.spinner {
+    width: 350px;
+    height: 350px;
+    animation: spin 2000ms;
+    animation-delay: 5000ms;
+    animation-fill-mode: both;
+}
+
+.titulo {
+    animation: desde-arriba 1000ms forwards;
+    animation-delay: 4000ms;
+    animation-fill-mode: both;
+}
+
+/*
+Apartir de aqui es la pagina brazo-movil
+*/
+.Brazo-completo {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.Brazo-completo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.fijo {
+    z-index: 1;
+}
+
+.girable {
+            z-index: 2;
+            animation: giro 3000ms infinite alternate;
+        }
 
 
 /*
