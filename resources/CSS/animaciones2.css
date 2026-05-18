@@ -1,0 +1,37 @@
+@keyframes moverCinta {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-400px);
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.cinta-activada {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    animation: moverCinta 7s linear infinite;
+}
+
+.cinta-desactivada {
+    display: flex;
+    position: relative;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.items{
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+}
