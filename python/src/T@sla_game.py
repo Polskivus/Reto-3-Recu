@@ -86,17 +86,26 @@ class PJ(pygame.sprite.Sprite):
         imagen_base = self.imagen_salto if self.saltando else self.imagen_normal
         self.imagen = pygame.transform.flip(imagen_base, self.direccion == 0, False)
         
-        colisiones = pygame.sprite.spritecollide(self,bloques,0)
+        self.rect.x = int(self.x)
+
+        colisiones = pygame.sprite.spritecollide(self, bloques, False)
         for bloque in colisiones:
-            if self.velocidad_y > 0:
+            if self.x < bloque.rect.left:
+                self.rect.right = bloque.rect.left
+                self.x = float(self.rect.x)
+            elif self.x > bloque.rect.left:
+                self.rect.left = bloque.rect.right
+                self.x = float(self.rect.x)
+
+        self.rect.y = int(self.y)
+
+        colisiones = pygame.sprite.spritecollide(self, bloques, False)
+        for bloque in colisiones:
+            if self.velocidad_y >= 0:
                 self.rect.bottom = bloque.rect.top
                 self.y = float(self.rect.y)
                 self.saltando = False
                 self.velocidad_y = 0
-                self.en_suelo = True
-
-        self.rect.x = int(self.x)
-        self.rect.y = int(self.y)
 
     def draw(self,surface):
         surface.blit(self.imagen, self.rect)
@@ -112,7 +121,8 @@ class Bloque(pygame.sprite.Sprite):
 P1 = PJ()
 bloques = pygame.sprite.Group()
 suelo = Bloque(400,600, 300, 20)
-bloques.add(suelo)
+suelo2 = Bloque(100, 600, 300, 20)
+bloques.add(suelo, suelo2)
 
 while ejecutando:
     for evento in pygame.event.get():
@@ -125,6 +135,25 @@ while ejecutando:
     bloques.draw(pantalla)
     P1.update(dt, bloques)
     P1.draw(pantalla)
+    pygame.draw.rect(pantalla, (255, 0, 0),P1.rect, 2)
+    pygame.draw.rect(pantalla, (255, 0, 0), suelo.rect, 2)
+    pygame.draw.rect(pantalla, (255, 0, 0), suelo2.rect, 2)
     pygame.display.flip()
 
 pygame.quit()
+
+
+"""
+        colisiones = pygame.sprite.spritecollide(self, bloques, 0)
+        for bloque in colisiones:
+            if self.velocidad_y > 0 and (self.rect.bottom - self.velocidad_y * dt) <= bloque.rect.top and :
+                #print(f"{self.rect.bottom} Pies del monigote")
+                #print(f"{bloque.rect.top} Superficie del bloque" )
+                self.rect.bottom = bloque.rect.top
+                #print(self.rect.bottom)
+                #print(bloque.rect.top)
+                self.y = float(self.rect.y)
+                self.saltando = False
+                self.velocidad_y = 0
+                self.en_suelo = True
+"""
