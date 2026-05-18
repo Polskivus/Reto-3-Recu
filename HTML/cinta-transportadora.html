@@ -62,9 +62,10 @@
 
                     for (let j = 0; j < 2; j++) {
                         const item = document.createElement('img');
-                        item.src = '/Reto-3-Recu/resources/img/ITEM1.svg';
+                        item.src = '/Reto-3-Recu/resources/img/ITEM4.svg';
                         item.alt = 'Item';
                         item.className = 'items';
+                        item.style.top = Math.floor((Math.random() * 34)) + 'px';
                         item.style.left = (posicionCinta + posicionItems[indiceItem]) + 'px';
                         pistaDestino.appendChild(item);
                         indiceItem++;
