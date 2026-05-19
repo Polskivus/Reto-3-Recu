@@ -1,9 +1,30 @@
 import pygame
 
+def crearBloque(ancho, alto, color):
+    plataforma = pygame.Surface((ancho,alto))
+    plataforma.fill(color)
+    return plataforma.convert_alpha()
+
+
 class Bloque(pygame.sprite.Sprite):
-    def __init__(self, x, y, ancho, alto):
+
+    def __init__(self, posicion_central, ancho, alto, color):
+
         super().__init__()
-        self.image = pygame.Surface((ancho, alto))
-        self.image.fill((139, 69, 19))
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+
+        bloque_normal = crearBloque(
+            ancho=ancho, alto=alto, color=color
+        )
+
+        self.imagen = bloque_normal
+        self.rect = bloque_normal.get_rect(center=posicion_central)
+
+    def draw(self, surface):
+        surface.blit(self.imagen, self.rect)
+
+"""
+    self.esta_encima = False
+    self.image = pygame.Surface((ancho, alto))
+    self.rect = self.image.get_rect()
+    self.rect.topleft = (x, y)
+"""
