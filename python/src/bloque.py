@@ -21,6 +21,9 @@ class Bloque(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.imagen, self.rect)
+    
+    def mostrar_hitbox(self, surface):
+        pygame.draw.rect(surface, (0,0,0), self.rect, 2)
 
 """
     self.esta_encima = False
