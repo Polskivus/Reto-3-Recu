@@ -48,10 +48,14 @@ def loop_principal(pantalla, botones_inicio, bloques, jugador):
         if bloques:
             for bloque in bloques:
                 bloque.draw(pantalla)
+                if DEBUG:
+                    bloque.mostrar_hitbox(pantalla)
         
         if jugador:
             jugador.update(dt, bloques)
             jugador.draw(pantalla)
+            if DEBUG:
+                jugador.mostrar_hitbox(pantalla)
 
         pygame.display.flip()
 

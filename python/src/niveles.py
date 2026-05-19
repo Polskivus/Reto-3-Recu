@@ -28,9 +28,9 @@ def pantalla_principal(pantalla):
 
 def nivel_1(pantalla, jugador):
     bloque1 = Bloque(
-        posicion_central=(600,600),
-        ancho=50,
-        alto=7,
+        posicion_central=(600,400),
+        ancho=150,
+        alto=25,
         color=ROJO
     )
 
