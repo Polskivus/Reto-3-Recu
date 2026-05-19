@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-import os
 from config import *
 
 class PJ(pygame.sprite.Sprite):
@@ -13,6 +12,9 @@ class PJ(pygame.sprite.Sprite):
         except pygame.error as e:
             print(f"No se pudo cargar la imagen: {ruta_imagen_PJ}")
             raise SystemExit(e)
+
+        self.mask = pygame.mask.from_surface(self.imagen)
+
         #Estos dos atributos comprueban si esta saltando y si esta en el suelo
         self.saltando = False
         self.en_suelo = True
@@ -69,7 +71,7 @@ class PJ(pygame.sprite.Sprite):
 
     def check_colisiones(self, bloques):
         self.rect.x = int(self.x)
-        for bloque in pygame.sprite.spritecollide(self, bloques, False):
+        for bloque in pygame.sprite.spritecollide(self, bloques, False, pygame.sprite.collide_mask):
             if self.rect.centerx < bloque.rect.centerx:
                 self.rect.right = bloque.rect.left
             else:
@@ -95,6 +97,7 @@ class PJ(pygame.sprite.Sprite):
     def actualizar_img(self):
         img_base = self.imagen_salto if self.saltando else self.imagen_normal
         self.imagen = pygame.transform.flip(img_base, self.direccion == 0, False)
+        self.mask = pygame.mask.from_surface(self.imagen)
 
     def mostrar_hitbox(self, surface):
         pygame.draw.rect(surface, (0,0,0), self.rect, 2)

@@ -19,6 +19,8 @@ class Bloque(pygame.sprite.Sprite):
         self.imagen = bloque_normal
         self.rect = bloque_normal.get_rect(center=posicion_central)
 
+        self.mask = pygame.mask.from_surface(self.imagen)
+
     def draw(self, surface):
         surface.blit(self.imagen, self.rect)
     
