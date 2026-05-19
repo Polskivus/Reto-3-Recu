@@ -3,11 +3,6 @@ from pygame.locals import *
 import os
 from config import *
 
-#Llamamos a las imagenes del PJ para poder imprimirlas
-ruta_actual = os.path.dirname(__file__)
-ruta_imagen_PJ = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Stick_man.png'))
-ruta_imagen_PJ_salto = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Saltando.png'))
-
 class PJ(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
