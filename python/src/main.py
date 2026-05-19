@@ -1,9 +1,7 @@
 import pygame
 from pygame.locals import *
-from pygame.sprite import RenderUpdates
+from niveles import pantalla_principal, nivel_1
 from personaje import PJ
-from bloque import Bloque
-from botones import ElementoUI
 from config import *
 
 
@@ -16,67 +14,18 @@ def main():
     while True:
 
         if estado == estadoJuego.PRINCIPAL:
-            estado = pantalla_principal(pantalla)
+            botones = pantalla_principal(pantalla)
+            estado = loop_principal(pantalla, botones, None, None)
+            
 
-        if estado == estadoJuego.NUEVO_JUEGO:
+        elif estado == estadoJuego.NUEVO_JUEGO:
             jugador = PJ()
-            estado = nivel_1(pantalla, jugador)
+            bloques, boton = nivel_1(pantalla, jugador)
+            estado = loop_principal(pantalla, boton, bloques, jugador)
 
-        if estado == estadoJuego.SALIR:
+        elif estado == estadoJuego.SALIR:
             pygame.quit()
             return
-        
-def pantalla_principal(pantalla):
-    boton_ini = ElementoUI(
-        posicion_central=(400, 400),
-        font_size=30,
-        bg_rgb=AZUL,
-        text_rgb=ROJO,
-        text="Start",
-        action=estadoJuego.NUEVO_JUEGO,
-    )
-
-    boton_sal = ElementoUI(
-        posicion_central=(400, 500),
-        font_size=30,
-        bg_rgb=ROJO,
-        text_rgb=AZUL,
-        text="Quit",
-        action=estadoJuego.SALIR,
-    )
-
-    botones_inicio = RenderUpdates(boton_ini, boton_sal)
-    return loop_principal(pantalla, botones_inicio, None, None)
-
-def nivel_1(pantalla, jugador):
-    bloque1 = Bloque(
-        posicion_central=(600,600),
-        ancho=50,
-        alto=7,
-        color=ROJO
-    )
-
-    bloque2 = Bloque(
-        posicion_central=(200,200),
-        ancho=50,
-        alto=7,
-        color=AZUL
-    )
-
-    boton_sal2 = ElementoUI(
-        posicion_central=(900, 100),
-        font_size=30,
-        bg_rgb=ROJO,
-        text_rgb=AZUL,
-        text="Quit",
-        action=estadoJuego.SALIR,
-    )
-
-    bloques_nivel = RenderUpdates(bloque1,bloque2)
-    boton = RenderUpdates(boton_sal2)
-    return loop_principal(pantalla, boton, bloques_nivel, jugador)
-
-
 
 def loop_principal(pantalla, botones_inicio, bloques, jugador):
     reloj = pygame.time.Clock()
