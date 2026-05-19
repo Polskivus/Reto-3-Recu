@@ -3,8 +3,8 @@ import os
 from enum import Enum
 
 #Pantalla
-SCREEN_WIDTH = 1400
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 1300
+SCREEN_HEIGHT = 750
 
 #Atributos del mundo
 VELOCIDAD = 300
@@ -16,6 +16,9 @@ VERDE = (0,255,0)
 AZUL = (0,0,255)
 BLANCO = (255,255,255)
 CASIMARRON = (225, 193, 110)
+
+#Opcion debug
+DEBUG = True
 
 #Fotogramas por segundo
 FPS = 60
