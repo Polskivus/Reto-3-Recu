@@ -17,6 +17,10 @@ AZUL = (0,0,255)
 BLANCO = (255,255,255)
 CASIMARRON = (225, 193, 110)
 
+#Tamaño hitbox
+ANCHO_HITBOX = 200
+ALTO_HITBOX = 180
+
 #Opcion debug
 DEBUG = True
 
