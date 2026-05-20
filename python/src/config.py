@@ -7,7 +7,7 @@ SCREEN_WIDTH = 1300
 SCREEN_HEIGHT = 750
 
 #Atributos del mundo
-VELOCIDAD = 300
+VELOCIDAD = 200
 GRAVEDAD = 200
 
 #Colores basicos
