@@ -25,8 +25,12 @@ class PJ(pygame.sprite.Sprite):
             self.animaciones = {
                 "idle": cargar_frames(ruta_quieto, factor=0.5),
                 "caminar": cargar_frames(ruta_andar, factor=0.5),
-                "saltar": cargar_frames(ruta_saltar, factor=0.5)
+                "saltar": cargar_frames(ruta_saltar, factor=0.5),
             }
+            #Creamos la animacion de caer despues, ya que si no metemos dentro 
+            # (lo he intentado) al no existir el diccionario hasta que se cree estaba intentando
+            #  buscar algo que aun no estaba creado
+            self.animaciones["caer"] = [self.animaciones["saltar"][16]]
         except pygame.error as e:
             print("No se pudo cargar las animaciones")
             raise SystemExit(e)
@@ -37,7 +41,8 @@ class PJ(pygame.sprite.Sprite):
         self.velocidad_anim = {
             "idle": 0.15,
             "caminar": 0.10,
-            "saltar": 0.05
+            "saltar": 0.05,
+            "caer": 0.05
         }
 
         self.imagen = self.animaciones["idle"][0]
@@ -143,8 +148,10 @@ class PJ(pygame.sprite.Sprite):
         #El print de abajo lo usado para poder comprobar que estados estaban los atributos, gracias al debug de eso he conseguido que el Pj haga siempre la animacion, el problema estaba en el flujo con el update
         #print(self.estado_anima, self.saltando, self.en_suelo, self.preparando_salto)
 
-        if self.preparando_salto or self.saltando or not self.en_suelo:
+        if self.preparando_salto or self.saltando:
             nuevo_estado = "saltar"
+        elif not self.en_suelo:
+            nuevo_estado = "caer"
         elif self.moviendose:
             nuevo_estado = "caminar"
         else:
