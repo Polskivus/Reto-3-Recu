@@ -27,6 +27,7 @@ FPS = 60
 ruta_actual = os.path.dirname(__file__)
 ruta_imagen_PJ = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Stick_man.png'))
 ruta_imagen_PJ_salto = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Saltando.png'))
+ruta_andar_robor = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img', 'walk'))
 
 #Posibles estados de juego
 class estadoJuego(Enum):
