@@ -42,11 +42,11 @@ def nivel_1(pantalla, jugador):
     )
 
     boton_sal2 = ElementoUI(
-        posicion_central=(900, 100),
+        posicion_central=(1200, 50),
         font_size=30,
         bg_rgb=ROJO,
         text_rgb=AZUL,
-        text="Quit",
+        text="X",
         action=estadoJuego.SALIR,
     )
 
