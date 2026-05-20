@@ -34,14 +34,20 @@ class PJ(pygame.sprite.Sprite):
         self.estado_anima = "idle"
         self.frame_actual = 0
         self.tiempo_acumulado = 0.0
-        self.velocidad_anim = 0.1 
+        self.velocidad_anim = {
+            "idle": 0.15,
+            "caminar": 0.10,
+            "saltar": 0.05
+        }
 
         self.imagen = self.animaciones["idle"][0]
         self.mask = pygame.mask.from_surface(self.imagen)
 
         #Estos dos atributos comprueban si esta saltando y si esta en el suelo
-        self.saltando = False
         self.en_suelo = True
+        self.saltando = False
+        self.preparando_salto = False
+        self.frame_accion_salto = 9
         #Velocidad en el eje Y
         self.velocidad_y = 0
         #Direccion a la que esta mirando 0 izq y 1 derecha
@@ -78,9 +84,10 @@ class PJ(pygame.sprite.Sprite):
             self.x += VELOCIDAD * dt
             self.direccion = 1
             self.moviendose = True
-        if tecla_pulsada[K_SPACE] and not self.saltando and self.en_suelo:
-            self.saltando = True
-            self.velocidad_y = -400
+        if tecla_pulsada[K_SPACE] and not self.saltando and self.en_suelo and not self.preparando_salto:
+            self.preparando_salto = True
+            self.frame_actual = 0
+            self.tiempo_acumulado = 0.0
 
     def aplicar_gravedad(self, dt):
         if not self.en_suelo:
@@ -132,7 +139,11 @@ class PJ(pygame.sprite.Sprite):
         self.imagen = pygame.transform.flip(img_base, self.direccion == 0, False)
         self.mask = pygame.mask.from_surface(self.imagen)
         """
-        if not self.en_suelo:
+
+        #El print de abajo lo usado para poder comprobar que estados estaban los atributos, gracias al debug de eso he conseguido que el Pj haga siempre la animacion, el problema estaba en el flujo con el update
+        #print(self.estado_anima, self.saltando, self.en_suelo, self.preparando_salto)
+
+        if self.preparando_salto or self.saltando or not self.en_suelo:
             nuevo_estado = "saltar"
         elif self.moviendose:
             nuevo_estado = "caminar"
@@ -145,14 +156,19 @@ class PJ(pygame.sprite.Sprite):
             self.tiempo_acumulado = 0.0
         
         self.tiempo_acumulado += dt
-        if self.tiempo_acumulado >= self.velocidad_anim:
-            self.tiempo_acumulado -= self.velocidad_anim
+        if self.tiempo_acumulado >= self.velocidad_anim[self.estado_anima]:
+            self.tiempo_acumulado -= self.velocidad_anim[self.estado_anima]
             frames = self.animaciones[self.estado_anima]
 
             if self.estado_anima == "saltar":
                 self.frame_actual = min(self.frame_actual + 1, len(frames) - 1)
             else:
                 self.frame_actual = (self.frame_actual + 1) % len(frames)
+            
+            if self.preparando_salto and self.frame_actual >= self.frame_accion_salto:
+                self.velocidad_y = -400
+                self.saltando = True
+                self.preparando_salto =False
         
         frame = self.animaciones[self.estado_anima][self.frame_actual]
         self.imagen = pygame.transform.flip(frame, self.direccion == 1, False)
