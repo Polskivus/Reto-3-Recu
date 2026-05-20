@@ -48,14 +48,17 @@ class PJ(pygame.sprite.Sprite):
         self.direccion = 1
         self.moviendose = False
 
-        self.rect = self.imagen.get_rect()
+        self.rect = pygame.Rect(0, 0, ANCHO_HITBOX, ALTO_HITBOX)
         self.rect.midbottom = (SCREEN_WIDTH / 2, SCREEN_HEIGHT)
 
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
     def draw(self,surface):
-        surface.blit(self.imagen, self.rect)
+        contenido_no_transparente = self.imagen.get_bounding_rect()
+        img_rect = self.imagen.get_rect(midbottom=self.rect.midbottom)
+        img_rect.y += img_rect.height - contenido_no_transparente.bottom
+        surface.blit(self.imagen, img_rect)
 
     def update(self, dt, bloques):
         self.control_input(dt)
@@ -145,10 +148,14 @@ class PJ(pygame.sprite.Sprite):
         if self.tiempo_acumulado >= self.velocidad_anim:
             self.tiempo_acumulado -= self.velocidad_anim
             frames = self.animaciones[self.estado_anima]
-            self.frame_actual = (self.frame_actual + 1) % len(frames)
+
+            if self.estado_anima == "saltar":
+                self.frame_actual = min(self.frame_actual + 1, len(frames) - 1)
+            else:
+                self.frame_actual = (self.frame_actual + 1) % len(frames)
         
         frame = self.animaciones[self.estado_anima][self.frame_actual]
-        self.imagen = pygame.transform.flip(frame, self.direccion == 0, False)
+        self.imagen = pygame.transform.flip(frame, self.direccion == 1, False)
         self.mask = pygame.mask.from_surface(self.imagen)
 
     def mostrar_hitbox(self, surface):
