@@ -25,9 +25,12 @@ FPS = 60
 
 #Rutas para las imagenes
 ruta_actual = os.path.dirname(__file__)
-ruta_imagen_PJ = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Stick_man.png'))
-ruta_imagen_PJ_salto = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Saltando.png'))
-ruta_andar_robor = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img', 'walk'))
+#ruta_imagen_PJ = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Stick_man.png'))
+#ruta_imagen_PJ_salto = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img','Saltando.png'))
+ruta_assets_robot = os.path.abspath(os.path.join(ruta_actual, '..', 'assets', 'img'))
+ruta_andar = os.path.abspath(os.path.join(ruta_assets_robot, "walk"))
+ruta_saltar = os.path.abspath(os.path.join(ruta_assets_robot, "jump"))
+ruta_quieto = os.path.abspath(os.path.join(ruta_assets_robot, "idle"))
 
 #Posibles estados de juego
 class estadoJuego(Enum):
